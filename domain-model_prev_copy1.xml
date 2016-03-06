@@ -1,0 +1,466 @@
+<domain-model>
+  <name>two-ball-collision</name>
+  <conditions>
+     <condition>
+      <name>initial-speed</name>
+      <type>integer</type>
+      <min-value>1</min-value>
+      <max-value>10</max-value>
+      <default-value>5</default-value>
+    </condition>
+    
+   <condition>
+      <name>mass-ratio</name>
+      <type>real</type>
+      <min-value>0.1</min-value>
+      <max-value>10</max-value>
+      <default-value>1</default-value>
+    </condition>
+    
+<!--     commented out now -->
+<!-- 
+   <condition>
+      <name>white-mass</name>
+      <type>integer</type>
+      <min-value>1</min-value>
+      <max-value>10</max-value>
+      <default-value>5</default-value>
+    </condition>
+	<condition>
+      <name>red-mass</name>
+      <type>integer</type>
+      <min-value>1</min-value>
+      <max-value>10</max-value>
+      <default-value>5</default-value>
+    </condition>
+ -->
+  </conditions>
+  <measurements />
+  
+  <global-properties />
+  <local-properties />
+
+  <agent-types>
+    <agent-type>
+      <name>balls</name>
+      <properties>
+      
+         <property>
+          <name>position</name>
+          <type>REAL</type>
+        </property>     
+            
+        <property>
+          <name>speed</name>
+          <type>REAL</type>
+        </property>    
+        
+        <property>
+          <name>direction</name>
+          <type>INTEGER</type>
+        </property>   
+        
+        <property>
+          <name>mass</name>
+          <type>INTEGER</type>
+        </property> 
+
+        <property>
+          <name>momentum</name>
+          <type>REAL</type>
+        </property> 
+      </properties>
+      
+      <procedures>
+        <procedure>
+          <name>go</name>
+          <fixed>true</fixed>
+          <hidden>true</hidden>
+          <imports>
+            <pattern>.*</pattern>
+          </imports>
+          <block-types>
+          
+<!--             <block-type>
+              <name>set-up</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments />
+              <user-defined>false</user-defined>
+              <implementation></implementation>
+            </block-type> -->
+            
+<!--             does it make sense to use a while block in the go procedure??? 
+				don't thinks so, make it simple
+				BUT, what about an if-statement??
+				
+				if near, then collide
+				otherwise, move -------I like this idea now
+-->
+
+            <block-type>
+              <!-- <name>white-ball-move-towards-red</name> -->
+              <name>move</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments />
+              <user-defined>false</user-defined>
+              <implementation></implementation>
+<!--               <implementation></implementation> could call external netlogo procedure-->
+            </block-type>
+            
+            <block-type>
+              <name>collide</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments />
+              <user-defined>false</user-defined>
+              <implementation></implementation>
+            </block-type>            
+            <block-type>
+              <!-- <name>continue-moving-after-collision</name> -->
+              <name>after-collision</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments />
+              <user-defined>false</user-defined>
+              <implementation></implementation>
+            </block-type>
+          </block-types>
+        </procedure>
+        
+<!--         <procedure>
+          <name>set-up</name>
+          <imports>
+            <pattern>.*</pattern>
+          </imports>
+          <block-types>
+            <block-type>
+              <name>set-initial-speed</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments>
+                <argument>
+                  <name>amount</name>
+                  <type>REAL</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <implementation>(set-prop-value (agent-prop self speed) :amount)</implementation>
+              <output-agent-properties>
+                 <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>speed</name>
+                  <type>REAL</type>
+                </agent-property> 
+              </output-agent-properties>
+            </block-type>
+            
+            <block-type>
+              <name>set-mass-of-white-ball</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments>
+                <argument>
+                  <name>amount</name>
+                  <type>INTEGER</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <implementation>(set-prop-value (agent-prop self mass-of-white-ball) :amount)</implementation>
+              <output-agent-properties>
+                 <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>mass-of-white-ball</name>
+                  <type>INTEGER</type>
+                </agent-property> 
+              </output-agent-properties>
+            </block-type>
+          
+            <block-type>
+              <name>set-mass-of-red-ball</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments>
+                <argument>
+                  <name>amount</name>
+                  <type>INTEGER</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <implementation>(set-prop-value (agent-prop self mass-of-red-ball) :amount)</implementation>
+              <output-agent-properties>
+                 <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>mass-of-red-ball</name>
+                  <type>INTEGER</type>
+                </agent-property> 
+              </output-agent-properties>
+            </block-type>
+          </block-types>
+        </procedure> -->
+        
+        
+        
+        
+        
+        <procedure>
+          <name>collide</name>
+          <imports>
+            <pattern>.*</pattern>
+          </imports>
+          <block-types>     
+          
+            <block-type>
+              <name>speed-of-white-ball</name>
+              <category>Agent Properties</category>
+              <return-type>REAL</return-type>
+              <arguments></arguments>
+              <user-defined>false</user-defined>
+              <implementation>(return (prop-value (agent-prop self speed-of-white-ball)))</implementation>
+            </block-type>
+            <block-type>
+              <name>mass-of-white-ball</name>
+              <category>Agent Properties</category>
+              <return-type>INTEGER</return-type>
+              <arguments></arguments>
+              <user-defined>false</user-defined>
+              <implementation>(return (prop-value (agent-prop self mass-of-white-ball)))</implementation>
+            </block-type>
+            <block-type>
+              <name>mass-of-red-ball</name>
+              <category>Agent Properties</category>
+              <return-type>INTEGER</return-type>
+              <arguments></arguments>
+              <user-defined>false</user-defined>
+              <implementation>(return (prop-value (agent-prop self mass-of-red-ball)))</implementation>
+            </block-type>
+            <block-type>
+              <name>direction-of-white-ball</name>
+              <category>Agent Properties</category>
+              <return-type>INTEGER</return-type>
+              <arguments></arguments>
+              <user-defined>false</user-defined>
+              <implementation>(return (prop-value (agent-prop self direction-of-white-ball)))</implementation>
+            </block-type>
+            <block-type>
+              <name>direction-of-red-ball</name>
+              <category>Agent Properties</category>
+              <return-type>INTEGER</return-type>
+              <arguments></arguments>
+              <user-defined>false</user-defined>
+              <implementation>(return (prop-value (agent-prop self direction-of-red-ball)))</implementation>
+            </block-type>
+            <block-type>
+              <name>speed-of-red-ball</name>
+              <category>Agent Properties</category>
+              <return-type>REAL</return-type>
+              <arguments></arguments>
+              <user-defined>false</user-defined>
+              <implementation>(return (prop-value (agent-prop self speed-of-red-ball)))</implementation>
+            </block-type>
+            <block-type>
+              <name>reverse</name>
+              <category>Control</category>
+              <return-type>NULL</return-type>
+              <arguments>        
+                <argument>
+                  <name>direction</name>
+                  <type>INTEGER</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <implementation>()</implementation>
+            </block-type>
+            
+            <block-type>
+              <name>old</name>
+              <category>Control</category>
+              <return-type>NULL</return-type>
+              <arguments>        
+                <argument>
+                  <name>old</name>
+                  <type>REAL</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <implementation>()</implementation>
+            </block-type>
+
+            <block-type>
+              <name>new</name>
+              <category>Control</category>
+              <return-type>NULL</return-type>
+              <arguments>        
+                <argument>
+                  <name>new</name>
+                  <type>REAL</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <implementation>()</implementation>
+            </block-type>
+
+            <block-type>
+              <name>assignment</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments>        
+                <argument>
+                  <name>left-side</name>
+                  <type>REAL</type>
+                </argument>
+                <argument>
+                  <name>right-side</name>
+                  <type>REAL</type>
+                </argument>
+                </arguments>
+              <user-defined>false</user-defined>
+              <implementation>()</implementation>
+		      <output-agent-properties>
+			    <agent-property>
+				  <agent-type>balls</agent-type>
+				  <name>speed-of-red-ball</name>
+				  <type>REAL</type>
+			    </agent-property>
+			  </output-agent-properties>              
+            </block-type>
+
+            
+            </block-types>
+        </procedure>        
+        
+         <procedure>
+          <name>move</name>
+          <imports>
+            <pattern>.*</pattern>
+          </imports>
+          <block-types>  
+          </block-types>
+        </procedure>
+
+         <procedure>
+          <name>after-collision</name>
+          <imports>
+            <pattern>.*</pattern>
+          </imports>
+          <block-types>  
+          </block-types>
+        </procedure>
+
+      </procedures>
+      <block-types />
+    </agent-type>
+  </agent-types>
+  
+  <environment-elements>
+  </environment-elements>
+  
+  <block-types>
+    <block-type>
+      <name>if-then-else</name>
+      <category>Control</category>
+      <return-type>NULL</return-type>
+      <arguments>
+        <argument>
+          <name>condition</name>
+          <type>BOOLEAN</type>
+        </argument>
+        <argument>
+          <name>consequent</name>
+          <type>BLOCK_SEQUENCE</type>
+        </argument>
+        <argument>
+          <name>alternative</name>
+          <type>BLOCK_SEQUENCE</type>
+        </argument>
+      </arguments>
+      <user-defined>false</user-defined>
+      <implementation>(if :condition :consequent :alternative)</implementation>
+    </block-type>
+    
+    
+    <block-type>
+      <name>less-than</name>
+      <category>Logical Operations</category>
+      <return-type>BOOLEAN</return-type>
+      <arguments>
+        <argument>
+          <name>inputA</name>
+          <type>INTEGER</type>
+        </argument>
+        <argument>
+          <name>inputB</name>
+          <type>INTEGER</type>
+        </argument>
+      </arguments>
+      <user-defined>false</user-defined>
+      <implementation>(return (lt :inputA :inputB))</implementation>
+    </block-type>
+    
+    <block-type>
+      <name>greater-than</name>
+      <category>Logical Operations</category>
+      <return-type>BOOLEAN</return-type>
+      <arguments>
+        <argument>
+          <name>inputA</name>
+          <type>INTEGER</type>
+        </argument>
+        <argument>
+          <name>inputB</name>
+          <type>INTEGER</type>
+        </argument>
+      </arguments>
+      <user-defined>false</user-defined>
+      <implementation>(return (gt :inputA :inputB))</implementation>
+    </block-type>
+    
+    <block-type>
+      <name>equal</name>
+      <category>Logical Operations</category>
+      <return-type>BOOLEAN</return-type>
+      <arguments>
+        <argument>
+          <name>inputA</name>
+          <type>INTEGER</type>
+        </argument>
+        <argument>
+          <name>inputB</name>
+          <type>INTEGER</type>
+        </argument>
+      </arguments>
+      <user-defined>false</user-defined>
+      <implementation>(return (eq :inputA :inputB))</implementation>
+    </block-type>    
+    
+    
+    
+    <block-type>
+      <name>repeat</name>
+      <category>Control</category>
+      <return-type>NULL</return-type>
+      <arguments>
+        <argument>
+          <name>times</name>
+          <type>INTEGER</type>
+        </argument>
+        <argument>
+          <name>sequence</name>
+          <type>BLOCK_SEQUENCE</type>
+        </argument>
+      </arguments>
+      <user-defined>false</user-defined>
+      <implementation>(repeat :times :sequence)</implementation>
+    </block-type>      
+
+
+    
+
+
+  </block-types>
+  <before-run>(ext-before-run)</before-run>
+  <before-step>(ext-before-step)</before-step>
+  <after-step>(ext-after-step)</after-step>
+  <after-run>(ext-after-run)</after-run>
+</domain-model>

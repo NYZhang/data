@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<conceptual-model-spec>
+	<agent-names>
+		<agent-name>agent1</agent-name>
+	</agent-names>
+	
+	<environment-element-names>
+	</environment-element-names>
+	
+	<behavior-names>
+	</behavior-names>
+	
+	<property-names>
+	</property-names>
+	
+	<agent-type-mappings>
+	</agent-type-mappings>
+	
+	<procedure-mappings>
+	</procedure-mappings>
+	
+	<agent-property-mappings>
+	</agent-property-mappings>
+	
+	<local-property-mappings>
+	</local-property-mappings>
+	
+	<global-property-mappings>
+	</global-property-mappings>
+	
+</conceptual-model-spec>

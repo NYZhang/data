@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<block-layouts>
+
+<!-- logic control blocks -->
+    <block-layout>
+        <block-type>if-then-else</block-type>
+        <bg-color>LightSteelBlue</bg-color>
+        <row>
+            <label>when </label>     
+            <filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>condition</argument>
+            </block-field>
+        </row>
+        <row>
+            <label>do</label>
+        </row>
+        <row>
+            <block-list-field>
+                <argument>consequent</argument>
+            </block-list-field>
+        </row>
+        <row>
+            <label>otherwise, do </label>
+        </row>
+        <row>
+            <block-list-field>
+                <argument>alternative</argument>
+            </block-list-field>
+        </row>
+
+    </block-layout>
+
+
+    <block-layout>
+        <block-type>update-position</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>go</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>update the position</label>
+            <filler></filler>
+        </row>
+    </block-layout>   
+
+    <block-layout>
+        <block-type>check-collision</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>go</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>check collision</label>
+            <filler></filler>
+        </row>
+    </block-layout>      
+
+    
+    
+    
+
+
+<!--  blocks inside update-position -->
+    <block-layout>
+      <block-type>forward</block-type>
+      <procedure>update-position</procedure>
+      <agent-type>balls</agent-type>
+      <bg-color>MediumTurquoise</bg-color>
+      <row>
+         <label>Move forward by </label>
+          <block-field>
+              <bg-color>#EED0EE</bg-color>
+              <argument>dist</argument>
+           </block-field>
+      </row>
+   </block-layout> 
+ 
+    <block-layout>
+        <block-type>speed</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-position</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label> speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+ 
+ 
+<!--  blocks inside check-collision -->
+	<block-layout>
+        <block-type>update-stationary-ball-speed</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>check-collision</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>update speed of the stationary ball</label>
+            <filler></filler>
+        </row>
+    </block-layout>      
+    
+	<block-layout>
+        <block-type>update-moving-ball-speed</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>check-collision</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>update speed of the moving ball</label>
+            <filler></filler>
+        </row>
+    </block-layout> 
+    
+    <block-layout>
+        <block-type>close</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>check-collision</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the balls collide with each other</label>
+            <filler></filler>
+        </row>
+    </block-layout>    
+
+    <block-layout>
+        <block-type>moving</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>check-collision</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball is moving</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+    <block-layout>
+        <block-type>keep-moving-same-speed</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>check-collision</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the balls keep moving at their current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+
+
+
+
+<!--  blocks inside update-stationary-ball-speed procedure -->
+    <block-layout>
+        <block-type>direction</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the other ball's direction</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+    
+	<block-layout>
+        <block-type>set-direction-same</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the ball's direction becomes the same as</label>
+			<filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>direction</argument>
+            </block-field>
+        </row>
+    </block-layout>
+    
+	<block-layout>
+        <block-type>set-direction-reverse</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the ball's direction becomes the opposite of</label>
+			<filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>direction</argument>
+            </block-field>
+        </row>
+    </block-layout>    
+    
+    <block-layout>
+        <block-type>mass-comparison-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball's mass is GREATER than the other ball's mass</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+    <block-layout>
+        <block-type>mass-comparison-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball's mass is LESS than the other ball's mass</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+    
+    <block-layout>
+        <block-type>mass-comparison-same</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball's mass is the SAME as the other's mass</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+    <block-layout>
+        <block-type>assign-new-speed</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the ball's speed becomes </label>
+            <filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>new-speed</argument>
+            </block-field>
+        </row>
+    </block-layout> 
+
+    <block-layout>
+        <block-type>same-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the SAME as the other ball's speed</label>
+            <filler></filler>
+        </row>
+    </block-layout> 
+   
+    <block-layout>
+        <block-type>smaller-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>SMALLER than its current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>  
+   
+    <block-layout>
+        <block-type>greater-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>GREATER than its current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>  
+    
+    <block-layout>
+        <block-type>same-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the SAME as its current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>      
+  
+    <block-layout>
+        <block-type>bigger-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>GREATER than the other ball's speed</label>
+            <filler></filler>
+        </row>
+    </block-layout> 
+   
+    <block-layout>
+        <block-type>smaller-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-stationary-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>SMALLER than the other ball's speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>   
+
+
+
+
+<!--  blocks inside update-moving-ball-speed procedure -->
+    <block-layout>
+        <block-type>direction</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>its current direction</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+    
+	<block-layout>
+        <block-type>set-direction-same</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the ball's direction will be the same as</label>
+			<filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>direction</argument>
+            </block-field>
+        </row>
+    </block-layout>
+    
+	<block-layout>
+        <block-type>set-direction-reverse</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the ball's direction will be the opposite of</label>
+			<filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>direction</argument>
+            </block-field>
+        </row>
+    </block-layout>    
+    
+    <block-layout>
+        <block-type>mass-comparison-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball's mass is GREATER than the other ball's mass</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+    <block-layout>
+        <block-type>mass-comparison-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball's mass is LESS than the other ball's mass</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+    
+    <block-layout>
+        <block-type>mass-comparison-same</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the ball's mass is the SAME as the other's mass</label>
+            <filler></filler>
+        </row>
+    </block-layout>
+
+    <block-layout>
+        <block-type>assign-new-speed</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>MediumTurquoise</bg-color>
+        <row>
+            <label>the ball's speed becomes </label>
+            <filler></filler>
+        </row>
+        <row>
+            <block-field>
+                <bg-color>#EED0EE</bg-color>
+                <argument>new-speed</argument>
+            </block-field>
+        </row>
+    </block-layout> 
+
+    <block-layout>
+        <block-type>same-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the SAME as the other ball's speed</label>
+            <filler></filler>
+        </row>
+    </block-layout> 
+   
+    <block-layout>
+        <block-type>smaller-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>SMALLER than its current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>  
+   
+    <block-layout>
+        <block-type>greater-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>GREATER than its current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>  
+    
+    <block-layout>
+        <block-type>same-me</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>the SAME as its current speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>      
+  
+    <block-layout>
+        <block-type>bigger-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>GREATER than the other ball's speed</label>
+            <filler></filler>
+        </row>
+    </block-layout> 
+   
+    <block-layout>
+        <block-type>smaller-other</block-type>
+        <agent-type>balls</agent-type>
+        <procedure>update-moving-ball-speed</procedure>
+        <bg-color>LightBlue</bg-color>
+        <row>
+            <label>SMALLER than the other ball's speed</label>
+            <filler></filler>
+        </row>
+    </block-layout>  
+
+     
+</block-layouts>

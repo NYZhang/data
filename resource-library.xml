@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<resource-library>
+    <section id="section-1">
+        <title>Section</title>
+        
+        <page id="page-1" type="text">
+            <title>Sample library</title>
+            <h1>Title</h1>
+            <p>
+                A sample resource library that you can put custom text into. Normal HTML, except with links that look like <link id="1" target="page-linked">this</link>.
+            </p>
+        </page>
+        <page id="page-linked" type="text">
+            <title>Linked Page</title>
+            <h1>Page</h1>
+            <p>
+                Nothing here on puprose.
+            </p>
+        </page>
+    </section>
+</resource-library>
+

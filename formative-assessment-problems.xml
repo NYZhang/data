@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='IBM1252'?><formative-assessment-problem-list>
+    <problems>
+        <problem>
+            <identifier>6ff71b77-c24d-4bf5-8fd7-37598274ff05</identifier>
+            <topic>Sample</topic>
+            <problem-text>What is a sample question?</problem-text>
+            <option1>Something else</option1>
+            <option2>This</option2>
+            <option3>Another thing</option3>
+            <option4>That over there</option4>
+            <solution>This</solution>
+        </problem>
+        
+    </problems>
+</formative-assessment-problem-list>
