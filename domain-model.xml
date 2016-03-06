@@ -5,16 +5,23 @@
       <name>initial-speed</name>
       <type>integer</type>
       <min-value>1</min-value>
+      <max-value>5</max-value>
+      <default-value>3</default-value>
+    </condition> 
+    <condition>
+      <name>target-ball-mass</name>
+      <type>integer</type>
+      <min-value>1</min-value>
       <max-value>10</max-value>
       <default-value>5</default-value>
     </condition> 
     <condition>
-      <name>mass-ratio</name>
+      <name>cue-ball-mass</name>
       <type>integer</type>
       <min-value>1</min-value>
-      <max-value>16</max-value>
-      <default-value>4</default-value>
-    </condition> 
+      <max-value>10</max-value>
+      <default-value>5</default-value>
+    </condition>     
   </conditions>
   <measurements />
   
@@ -104,8 +111,8 @@
 				</argument>
 			  </arguments>
 			  <user-defined>false</user-defined>
-			  <implementation>(move-forward self :dist)
-              </implementation>
+<!-- 			  <implementation>(move-forward self :dist)</implementation> -->
+			  <implementation>(do-agent-proc self move-forward :dist)</implementation>
                <input-agent-properties>
 				<agent-property>
 	              <agent-type>balls</agent-type>

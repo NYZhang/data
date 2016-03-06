@@ -9,55 +9,60 @@ balls-own
 ]
 
 
+
 globals [
- last-step
- done
- collided
  initial-speed
- mass-ratio
+ ;;mass-ratio
  cue-ball-mass 
  target-ball-mass 
+ 
+ last-step
+ 
+ done
+ collided
 ]
+
+;; private
+to-report __size [ms]
+  report 1 + ms / 10
+end
+
+
+to make-ball [clr spd ms nm pos sz]
+  create-balls 1 [
+    set color clr
+    set xcor  pos
+    set speed spd 
+    set mass ms
+    set id nm
+    set size sz
+    set heading 90
+    ]
+end
+
 
 
 to before-run 
-  clear-all
+  ;;clear-all
+  
   set-default-shape balls "circle"
   set done false
   set collided 0
   ;; set initial-speed 1
-  set cue-ball-mass mass-ratio
-  set target-ball-mass 4
+  
+  
+  ;;set cue-ball-mass mass-ratio
+  ;;set target-ball-mass 4
+  
 
-  make-balls
+
+  ;;make-ball [clr spd ms nm pos]
+  make-ball white initial-speed cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
+  make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
+
 
   reset-ticks
 end
-
-
-
-to make-balls
-  create-balls 1 [
-    set color white
-    set xcor  min-pxcor + 1
-    set speed initial-speed 
-    set mass cue-ball-mass
-    set id "cue"
-    set size 1
-    set heading 90
-  ]
-
-  create-balls 1 [
-    set color red
-    set speed 0
-    set mass target-ball-mass
-    set id "target"
-    set size 2
-    set heading 90
-  ]
-
-end
-
 
 
 to-report get-by-id [i]
@@ -66,12 +71,12 @@ end
 
 
 
-
-;;to move-forward [dist]
-;;  if dist != 0 [
-;;    ask balls[forward speed]
-;;  ]
-;;end
+to move-forward [dist]
+  if done = false [
+    ask balls[forward speed / 10]
+    check-done
+  ]
+end
 
 
 
@@ -291,9 +296,7 @@ to collide
 end
 
 
-to pause
-  set done true
-end
+
 
 
 to check-done
@@ -382,9 +385,9 @@ to after-run
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+9
 10
-649
+448
 470
 16
 16
