@@ -11,10 +11,13 @@ balls-own
 
 
 globals [
- initial-speed
- ;;mass-ratio
  cue-ball-mass 
  target-ball-mass 
+ initial-speed
+ 
+ M1
+ M2
+ INIT
  
  last-step
  
@@ -42,27 +45,7 @@ end
 
 
 
-to before-run 
-  ;;clear-all
-  
-  set-default-shape balls "circle"
-  set done false
-  set collided 0
-  ;; set initial-speed 1
-  
-  
-  ;;set cue-ball-mass mass-ratio
-  ;;set target-ball-mass 4
-  
 
-
-  ;;make-ball [clr spd ms nm pos]
-  make-ball white initial-speed cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
-  make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
-
-
-  reset-ticks
-end
 
 
 to-report get-by-id [i]
@@ -131,15 +114,15 @@ end
 ;; e.g. stationary-me --> target-heavier, or
 ;; moving-other --> target-heavier
 to-report cue-heavier
- report cue-ball-mass > target-ball-mass 
+ report M1 > M2 
 end
 
 to-report target-heavier
- report cue-ball-mass < target-ball-mass 
+ report M1 < M2 
 end
 
 to-report same-mass
- report cue-ball-mass = target-ball-mass 
+ report M1 = M2 
 end
 
 
@@ -154,7 +137,9 @@ end
 to-report stationary-same-other
   ;; correct block that should be used
   ;; when m1 == m2
-  report initial-speed
+  let b get-by-id "cue"
+  report [speed] of b
+;;  report initial-speed
 end
 
 to-report stationary-smaller-me
@@ -174,29 +159,29 @@ to-report stationary-greater-me
   ;; correct block but shouldn't be used
   ;; that target's speed increases is a tautology 
   ;; returning a very slow speed
-  report initial-speed / 10000.0
+  report INIT / 10000.0
 end
 
 to-report stationary-bigger-other
   ;; correct block that should be used 
   ;; when m1 > m2
-  let m1 cue-ball-mass 
-  let m2 target-ball-mass
-  if m1 > m2 [report 2 * m2 * initial-speed / (m1 + m2)]
+;;  let m1 cue-ball-mass 
+;;  let m2 target-ball-mass
+  if M1 > M2 [report 2 * M2 * INIT / (M1 + M2)]
   ;; if used in the incorrect position
   ;; penalize by giving a fast speed that is impossible to reach
-  report initial-speed * 4
+  report INIT * 4
 end
 
 to-report stationary-smaller-other
   ;; correct block that should be used
   ;; when m1 < m2
-  let m1 cue-ball-mass 
-  let m2 target-ball-mass
-  if m1 > m2 [report 2 * m2 * initial-speed / (m1 + m2)]
+;;  let m1 cue-ball-mass 
+;;  let m2 target-ball-mass
+  if M1 > M2 [report 2 * M2 * INIT / (M1 + M2)]
   ;; if used in the incorrect position
   ;; penalize by giving a slower speed that doesn't change
-  report initial-speed * 0.5
+  report INIT * 0.5
 end
 
 ;;=============partition line=================
@@ -227,9 +212,9 @@ end
 to-report moving-smaller-me
   ;; correct block that should be called
   ;; when m1 != m2
-  let m1 cue-ball-mass 
-  let m2 target-ball-mass
-  if m1 != m2 [report (m1 + m2) * initial-speed / (m1 + m2)]
+;  let m1 cue-ball-mass 
+;  let m2 target-ball-mass
+  if M1 != M2 [report (M1 + M2) * INIT / (M1 + M2)]
   
   report 0
 end
@@ -237,12 +222,12 @@ end
 to-report moving-greater-me
   ;; incorrect block that shouldn't be used
   ;; the cue shouldn't become faster anyhow
-  report initial-speed * 4
+  report INIT * 4
 end
 
 to-report moving-same-me
   ;; correct but shouldn't be used
-  report initial-speed
+  report INIT
 end
 
 
@@ -250,7 +235,7 @@ to-report moving-bigger-other
   ;; correct block but shouldn't be used 
   ;; only telling that the speed is greater than 0
   ;; so return a small speed 
-  report initial-speed / 100
+  report INIT / 100
 end
 
 to-report moving-smaller-other
@@ -281,9 +266,9 @@ to collide
    let b1 get-by-id "cue"
    let b2 get-by-id "target"
    
-   let m1 [mass] of b1
+
    let v1 [speed] of b1
-   let m2 [mass] of b2
+
    let v2 [speed] of b2
 
    ask b1 [
@@ -326,7 +311,7 @@ end
 ;; simple ones:
 to-report same-white
   ;; init speed
-  report initial-speed 
+  report INIT 
 end
 to-report same-red
   ;; just 0
@@ -345,29 +330,26 @@ to-report bigger-white
    ;;; 3 conditions
    ;; this function should be called only when 
    ;; m1 > m2
-   let m1 cue-ball-mass 
-   let m2 target-ball-mass 
-   let correct 2 * m1 / (m1 + m2) * initial-speed
-   if (m1 > m2) [report correct]
-   report initial-speed * 2
+;;   let m1 cue-ball-mass 
+;;   let m2 target-ball-mass 
+   let correct 2 * M1 / (M1 + M2) * INIT
+   if (M1 > M2) [report correct]
+   report INIT * 2
 end
 
 to-report smaller-white
-   let m1 cue-ball-mass 
-   let m2 target-ball-mass 
-   report 2 * m1 / (m1 + m2) * initial-speed
+
+   report 2 * m1 / (m1 + m2) * INIT
 end
 
 to-report smaller-white-same
-   let m1 cue-ball-mass 
-   let m2 target-ball-mass 
-   report (m1 - m2) / (m1 + m2) * initial-speed
+
+   report (m1 - m2) / (m1 + m2) * INIT
 end
 
 to-report smaller-white-reverse
-   let m1 cue-ball-mass 
-   let m2 target-ball-mass 
-   report (m1 - m2) / (m1 + m2) * initial-speed
+
+   report (m1 - m2) / (m1 + m2) * INIT
 end
 
 
@@ -383,11 +365,36 @@ end
 
 to after-run
 end
+
+
+to before-run 
+  ;;clear-all
+  set INIT initial-speed
+  set-default-shape balls "circle"
+  set done false
+  set collided 0
+  ;; set initial-speed 1
+  
+  
+  ;;set cue-ball-mass mass-ratio
+  ;;set target-ball-mass 4
+  
+
+
+  ;;make-ball [clr spd ms nm pos]
+  make-ball white initial-speed cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
+  make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
+
+  set M1 cue-ball-mass
+  set M2 target-ball-mass
+
+  reset-ticks
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+9
 10
-649
+448
 470
 16
 16
