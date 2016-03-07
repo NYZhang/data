@@ -9,11 +9,10 @@ balls-own
 ]
 
 
-
 globals [
- cue-ball-mass 
- target-ball-mass 
- initial-speed
+ cue-ball-mass
+ target-ball-mass
+ star-speed
  
  M1
  M2
@@ -24,6 +23,8 @@ globals [
  done
  collided
 ]
+
+
 
 ;; private
 to-report __size [ms]
@@ -42,9 +43,6 @@ to make-ball [clr spd ms nm pos sz]
     set heading 90
     ]
 end
-
-
-
 
 
 
@@ -139,7 +137,7 @@ to-report stationary-same-other
   ;; when m1 == m2
   let b get-by-id "cue"
   report [speed] of b
-;;  report initial-speed
+
 end
 
 to-report stationary-smaller-me
@@ -368,12 +366,12 @@ end
 
 
 to before-run 
-  ;;clear-all
-  set INIT initial-speed
+  clear-all
+  ;;set INIT start-speed
   set-default-shape balls "circle"
   set done false
   set collided 0
-  ;; set initial-speed 1
+
   
   
   ;;set cue-ball-mass mass-ratio
@@ -382,7 +380,8 @@ to before-run
 
 
   ;;make-ball [clr spd ms nm pos]
-  make-ball white initial-speed cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
+  make-ball white 1 cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
+ ;; make-ball white INIT cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
   make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
 
   set M1 cue-ball-mass
