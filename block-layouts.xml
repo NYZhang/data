@@ -64,7 +64,7 @@
 
 <!--  blocks inside update-position -->
     <block-layout>
-      <block-type>forward</block-type>
+      <block-type>move-forward</block-type>
       <procedure>update-position</procedure>
       <agent-type>balls</agent-type>
       <bg-color>MediumTurquoise</bg-color>
@@ -78,7 +78,7 @@
    </block-layout> 
  
     <block-layout>
-        <block-type>speed</block-type>
+        <block-type>ball-speed</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-position</procedure>
         <bg-color>LightBlue</bg-color>
@@ -152,7 +152,7 @@
 
 <!--  blocks inside update-stationary-ball-speed procedure -->
     <block-layout>
-        <block-type>direction</block-type>
+        <block-type>direction-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -163,7 +163,7 @@
     </block-layout>
     
 	<block-layout>
-        <block-type>set-direction-same</block-type>
+        <block-type>set-direction-same-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>MediumTurquoise</bg-color>
@@ -180,7 +180,7 @@
     </block-layout>
     
 	<block-layout>
-        <block-type>set-direction-reverse</block-type>
+        <block-type>set-direction-reverse-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>MediumTurquoise</bg-color>
@@ -197,7 +197,7 @@
     </block-layout>    
     
     <block-layout>
-        <block-type>mass-comparison-me</block-type>
+        <block-type>mass-comparison-me-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -208,7 +208,7 @@
     </block-layout>
 
     <block-layout>
-        <block-type>mass-comparison-other</block-type>
+        <block-type>mass-comparison-other-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -219,7 +219,7 @@
     </block-layout>
     
     <block-layout>
-        <block-type>mass-comparison-same</block-type>
+        <block-type>mass-comparison-same-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -230,7 +230,7 @@
     </block-layout>
 
     <block-layout>
-        <block-type>assign-new-speed</block-type>
+        <block-type>assign-new-speed-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>MediumTurquoise</bg-color>
@@ -247,7 +247,7 @@
     </block-layout> 
 
     <block-layout>
-        <block-type>same-other</block-type>
+        <block-type>same-other-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -258,7 +258,7 @@
     </block-layout> 
    
     <block-layout>
-        <block-type>smaller-me</block-type>
+        <block-type>smaller-me-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -269,7 +269,7 @@
     </block-layout>  
    
     <block-layout>
-        <block-type>greater-me</block-type>
+        <block-type>greater-me-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -280,7 +280,7 @@
     </block-layout>  
     
     <block-layout>
-        <block-type>same-me</block-type>
+        <block-type>same-me-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -291,7 +291,7 @@
     </block-layout>      
   
     <block-layout>
-        <block-type>bigger-other</block-type>
+        <block-type>bigger-other-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -302,7 +302,7 @@
     </block-layout> 
    
     <block-layout>
-        <block-type>smaller-other</block-type>
+        <block-type>smaller-other-stationary</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-stationary-ball-speed</procedure>
         <bg-color>LightBlue</bg-color>
@@ -395,7 +395,7 @@
     </block-layout>
 
     <block-layout>
-        <block-type>assign-new-speed</block-type>
+        <block-type>assign-new-speed-moving</block-type>
         <agent-type>balls</agent-type>
         <procedure>update-moving-ball-speed</procedure>
         <bg-color>MediumTurquoise</bg-color>

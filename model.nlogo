@@ -2,17 +2,17 @@ breed [balls ball ]
 
 balls-own
 [
-  id
+  name
   speed 
   mass 
-  momentum 
+  momentum
 ]
 
 
 globals [
  cue-ball-mass
  target-ball-mass
- star-speed
+ init-speed
  
  M1
  M2
@@ -21,7 +21,9 @@ globals [
  last-step
  
  done
- collided
+ cue-collided 
+ target-collided
+ reversed
 ]
 
 
@@ -31,6 +33,13 @@ to-report __size [ms]
   report 1 + ms / 10
 end
 
+;; private
+to-report get-by-name [i]
+  report one-of balls with [name = i]
+end
+
+
+
 
 to make-ball [clr spd ms nm pos sz]
   create-balls 1 [
@@ -38,7 +47,7 @@ to make-ball [clr spd ms nm pos sz]
     set xcor  pos
     set speed spd 
     set mass ms
-    set id nm
+    set name nm
     set size sz
     set heading 90
     ]
@@ -46,15 +55,13 @@ end
 
 
 
-to-report get-by-id [i]
-  report one-of balls with [id = i]
-end
 
 
 
-to move-forward [dist]
+
+to move [dist]
   if done = false [
-    ask balls[forward speed / 10]
+    ask balls[forward speed * 0.025]
     check-done
   ]
 end
@@ -65,17 +72,14 @@ to-report is-moving
   report speed != 0
 end
 
+
 to no-op
 end
 
 
 to-report close
-  if collided = 2 [report false]
-  
-  if collided = 1 [report true]
-  
-  let b1 get-by-id "cue"
-  let b2 get-by-id "target"
+  let b1 get-by-name "cue"
+  let b2 get-by-name "target"
   
   let x1 [xcor] of b1
   let x2 [xcor] of b2
@@ -91,18 +95,18 @@ end
 
 
 to-report moving-direction
-  let b get-by-id "cue"
+  let b get-by-name "cue"
   report [heading] of b
 end
 
 
 to set-stationary-direction-same [direction]
-  let b get-by-id "target"
+  let b get-by-name "target"
   ask b [set heading direction]
 end
 
 to set-stationary-direction-reverse [direction]
-  let b get-by-id "target"
+  let b get-by-name "target"
   ask b [set heading direction * -1]
 end
 
@@ -125,8 +129,11 @@ end
 
 
 to update-stationary-speed [new-speed]
-  let b get-by-id "target"
-  ask b [set speed new-speed]
+  if target-collided = false [
+    let b get-by-name "target"
+    ask b [set speed new-speed]
+    set target-collided True
+    ]
 end
 
 
@@ -135,9 +142,9 @@ end
 to-report stationary-same-other
   ;; correct block that should be used
   ;; when m1 == m2
-  let b get-by-id "cue"
-  report [speed] of b
-
+ ; let b get-by-name "cue"
+ ; report [speed] of b
+  report INIT
 end
 
 to-report stationary-smaller-me
@@ -157,7 +164,7 @@ to-report stationary-greater-me
   ;; correct block but shouldn't be used
   ;; that target's speed increases is a tautology 
   ;; returning a very slow speed
-  report INIT / 10000.0
+  report INIT / 10
 end
 
 to-report stationary-bigger-other
@@ -165,10 +172,10 @@ to-report stationary-bigger-other
   ;; when m1 > m2
 ;;  let m1 cue-ball-mass 
 ;;  let m2 target-ball-mass
-  if M1 > M2 [report 2 * M2 * INIT / (M1 + M2)]
+  if M1 > M2 [report 2 * M1 * INIT / (M1 + M2)]
   ;; if used in the incorrect position
   ;; penalize by giving a fast speed that is impossible to reach
-  report INIT * 4
+  report INIT * 2
 end
 
 to-report stationary-smaller-other
@@ -176,7 +183,7 @@ to-report stationary-smaller-other
   ;; when m1 < m2
 ;;  let m1 cue-ball-mass 
 ;;  let m2 target-ball-mass
-  if M1 > M2 [report 2 * M2 * INIT / (M1 + M2)]
+  if M1 < M2 [report 2 * M1 * INIT / (M1 + M2)]
   ;; if used in the incorrect position
   ;; penalize by giving a slower speed that doesn't change
   report INIT * 0.5
@@ -185,18 +192,24 @@ end
 ;;=============partition line=================
 
 to update-moving-speed [new-speed]
-  let b get-by-id "cue"
-  ask b [set speed new-speed]
+  if cue-collided = false [
+    let b get-by-name "cue"
+    ask b [set speed new-speed]
+    set cue-collided true
+  ]
 end
 
 to set-moving-direction-same [direction]
-  let b get-by-id "cue"
+  let b get-by-name "cue"
   ask b [set heading direction]
 end
 
 to set-moving-direction-reverse [direction]
-  let b get-by-id "cue"
-  ask b [set heading direction * -1]
+  if reversed = false[
+    let b get-by-name "cue"
+    ask b [set heading direction * -1]
+    set reversed true
+  ]
 end
 
 
@@ -212,9 +225,8 @@ to-report moving-smaller-me
   ;; when m1 != m2
 ;  let m1 cue-ball-mass 
 ;  let m2 target-ball-mass
-  if M1 != M2 [report (M1 + M2) * INIT / (M1 + M2)]
-  
-  report 0
+
+    report abs ((M1 - M2) * INIT / (M1 + M2))
 end
 
 to-report moving-greater-me
@@ -233,7 +245,7 @@ to-report moving-bigger-other
   ;; correct block but shouldn't be used 
   ;; only telling that the speed is greater than 0
   ;; so return a small speed 
-  report INIT / 100
+  report INIT / 10
 end
 
 to-report moving-smaller-other
@@ -246,23 +258,12 @@ end
 
 
 
-to check-collision
-  ;; the collision detection method used in the gaslab 
-  ;; single collision has the problem of intersecting the 
-  ;; two agents
-  ;;let candidate one-of other balls-here
-  ;;if (candidate != nobody and not collided)[ 
-   
-  if (close and not collided)[
-    collide
-    set collided true
-  ]
-end
+
 
 
 to collide
-   let b1 get-by-id "cue"
-   let b2 get-by-id "target"
+   let b1 get-by-name "cue"
+   let b2 get-by-name "target"
    
 
    let v1 [speed] of b1
@@ -291,63 +292,42 @@ to check-done
   ]
 end
 
-to-report is-finished
-  report done
-end
-
-to-report is-collided
-  report collided
-end
 
 
 
-;; fext functions to be used in collide
 
-;; ======================
 
-;; new speed getters
-;; simple ones:
-to-report same-white
-  ;; init speed
-  report INIT 
-end
-to-report same-red
-  ;; just 0
-  report 0
-end
-to-report smaller-red
-  ;; impossible
-  report 0
-end
-to-report bigger-red
-  ;;tautology
-  report 0
-end
 
-to-report bigger-white
-   ;;; 3 conditions
-   ;; this function should be called only when 
-   ;; m1 > m2
-;;   let m1 cue-ball-mass 
-;;   let m2 target-ball-mass 
-   let correct 2 * M1 / (M1 + M2) * INIT
-   if (M1 > M2) [report correct]
-   report INIT * 2
-end
 
-to-report smaller-white
 
-   report 2 * m1 / (m1 + m2) * INIT
-end
 
-to-report smaller-white-same
 
-   report (m1 - m2) / (m1 + m2) * INIT
-end
+to before-run 
+  ;clear-all
+  
+  ;;set INIT start-speed
+  set-default-shape balls "circle"
+  set done false
+  set cue-collided false  
+  set target-collided false
+  set reversed false
 
-to-report smaller-white-reverse
+  set M1 cue-ball-mass
+  set M2 target-ball-mass
+  set INIT init-speed
+  ;;set cue-ball-mass mass-ratio
+  ;;set target-ball-mass 4
+  
+  ;;make-ball [clr spd ms nm pos sz]
+ ;; make-ball white 1 4 "cue" min-pxcor + 1 1 + cue-ball-mass / 10
+  make-ball white init-speed cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
+  make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
 
-   report (m1 - m2) / (m1 + m2) * INIT
+
+
+
+  reset-ticks
+ ; clear-all-plots
 end
 
 
@@ -356,38 +336,15 @@ to before-step
 end
 
 to after-step
+  if not done[
+    tick
+  ]
 end
 
 to update-view
 end
 
 to after-run
-end
-
-
-to before-run 
-  clear-all
-  ;;set INIT start-speed
-  set-default-shape balls "circle"
-  set done false
-  set collided 0
-
-  
-  
-  ;;set cue-ball-mass mass-ratio
-  ;;set target-ball-mass 4
-  
-
-
-  ;;make-ball [clr spd ms nm pos]
-  make-ball white 1 cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
- ;; make-ball white INIT cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
-  make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
-
-  set M1 cue-ball-mass
-  set M2 target-ball-mass
-
-  reset-ticks
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -404,8 +361,8 @@ GRAPHICS-WINDOW
 1
 1
 0
-1
-1
+0
+0
 1
 -16
 16
@@ -416,6 +373,138 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+MONITOR
+452
+11
+564
+56
+NIL
+[speed] of ball 0
+17
+1
+11
+
+MONITOR
+453
+101
+561
+146
+NIL
+[mass] of ball 0
+17
+1
+11
+
+MONITOR
+453
+146
+561
+191
+NIL
+[mass] of ball 1
+17
+1
+11
+
+MONITOR
+453
+56
+565
+101
+NIL
+[speed] of ball 1
+17
+1
+11
+
+MONITOR
+454
+191
+511
+236
+NIL
+close
+17
+1
+11
+
+MONITOR
+511
+191
+601
+236
+NIL
+cue-collided
+17
+1
+11
+
+MONITOR
+456
+237
+541
+282
+NIL
+same-mass
+17
+1
+11
+
+MONITOR
+457
+285
+544
+330
+NIL
+cue-heavier
+17
+1
+11
+
+MONITOR
+457
+328
+593
+373
+NIL
+moving-smaller-me
+17
+1
+11
+
+MONITOR
+458
+375
+625
+420
+NIL
+stationary-bigger-other
+17
+1
+11
+
+MONITOR
+603
+190
+708
+235
+NIL
+target-collided
+17
+1
+11
+
+MONITOR
+564
+13
+621
+58
+NIL
+done
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
