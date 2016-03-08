@@ -1,86 +1,69 @@
 <domain-model>
   <name>two-ball-collision</name>
-   <conditions>
-     <condition>
+  <conditions>
+    <condition>
       <name>init-speed</name>
       <type>integer</type>
       <min-value>1</min-value>
       <max-value>5</max-value>
       <default-value>3</default-value>
-    </condition> 
-
+    </condition>
     <condition>
       <name>target-ball-mass</name>
       <type>integer</type>
       <min-value>1</min-value>
       <max-value>10</max-value>
       <default-value>5</default-value>
-    </condition> 
-    
+    </condition>
     <condition>
       <name>cue-ball-mass</name>
       <type>integer</type>
       <min-value>1</min-value>
       <max-value>10</max-value>
       <default-value>5</default-value>
-    </condition> 
-       
+    </condition>
   </conditions>
-  
-  <measurements />
-  <global-properties />
-  <local-properties />
-
+  <measurements/>
+  <global-properties/>
+  <local-properties/>
   <agent-types>
     <agent-type>
       <name>balls</name>
       <properties>
-        
         <property>
           <name>mass</name>
           <type>INTEGER</type>
-        </property> 
-        
+        </property>
         <property>
           <name>x-coordinate</name>
           <type>REAL</type>
-        </property>     
-            
+        </property>
         <property>
           <name>speed</name>
           <type>REAL</type>
-        </property>    
-        
+        </property>
         <property>
           <name>direction</name>
           <type>INTEGER</type>
-        </property>          
-
+        </property>
         <property>
           <name>color</name>
           <type>REAL</type>
-        </property>    
-        
+        </property>
         <property>
           <name>name</name>
           <type>INTEGER</type>
-        </property>       
-        
+        </property>
         <property>
           <name>price</name>
           <type>REAL</type>
-        </property>               
-
+        </property>
         <property>
           <name>owner</name>
           <type>REAL</type>
-        </property>           
-        
+        </property>
       </properties>
-      
-      
       <procedures>
-      
         <procedure>
           <name>go</name>
           <fixed>true</fixed>
@@ -89,725 +72,622 @@
             <pattern>.*</pattern>
           </imports>
           <block-types>
-          
             <block-type>
               <name>check-collision</name>
               <category>Actions</category>
               <return-type>NULL</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(do-agent-proc self ap-balls-check-collision)</implementation>
             </block-type>
-
-
             <block-type>
               <name>update-position</name>
               <category>Actions</category>
               <return-type>NULL</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(do-agent-proc self ap-balls-update-position)</implementation>
-            </block-type>    
-                
+            </block-type>
           </block-types>
         </procedure>
-        
         <procedure>
           <name>update-position</name>
           <imports>
             <pattern>.*</pattern>
           </imports>
           <block-types>
-          
-			<block-type>
-			  <name>move-forward</name>
-			  <category>Actions</category>
-			  <return-type>NULL</return-type>
-			  <arguments>
-				<argument>
-				  <name>dist</name>
-				  <type>REAL</type>
-				</argument>
-			  </arguments>
-			  <user-defined>false</user-defined>
-<!-- 			  <implementation>(move-forward self (* dist :0.05))</implementation> -->
-
+            <block-type>
+              <name>move-forward</name>
+              <category>Actions</category>
+              <return-type>NULL</return-type>
+              <arguments>
+                <argument>
+                  <name>dist</name>
+                  <type>REAL</type>
+                </argument>
+              </arguments>
+              <user-defined>false</user-defined>
+              <!-- 			  <implementation>(move-forward self (* dist :0.05))</implementation> -->
               <implementation>(do (ext-move :dist))</implementation>
-
-			  
-<!-- 			  <implementation>(do-agent-proc self move-forward :dist)</implementation> -->
-<!-- 			  <implementation>(do-agent-proc self move-forward)</implementation> -->
-<!-- 			  <implementation>(move-forward self : dist)</implementation> -->
-<!-- 			  <implementation>(move-forward self :dist)</implementation> -->
-               <input-agent-properties>
-				<agent-property>
-	              <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-				</agent-property>
-			  </input-agent-properties>
-			  <output-agent-properties>
-				<agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>x-coordinate</name>
-				  <type>REAL</type>
-				</agent-property>
-			  </output-agent-properties>
-			</block-type>
-			
-			<block-type>
+              <!-- 			  <implementation>(do-agent-proc self move-forward :dist)</implementation> -->
+              <!-- 			  <implementation>(do-agent-proc self move-forward)</implementation> -->
+              <!-- 			  <implementation>(move-forward self : dist)</implementation> -->
+              <!-- 			  <implementation>(move-forward self :dist)</implementation> -->
+              <input-agent-properties>
+                <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>speed</name>
+                  <type>REAL</type>
+                </agent-property>
+              </input-agent-properties>
+              <output-agent-properties>
+                <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>x-coordinate</name>
+                  <type>REAL</type>
+                </agent-property>
+              </output-agent-properties>
+            </block-type>
+            <block-type>
               <name>ball-speed</name>
               <category>Agent Properties</category>
               <return-type>REAL</return-type>
-              <arguments></arguments>
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(return (prop-value (agent-prop self speed)))</implementation>
-			  <input-agent-properties>
-				<agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-				</agent-property>
-			  </input-agent-properties>
+              <input-agent-properties>
+                <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>speed</name>
+                  <type>REAL</type>
+                </agent-property>
+              </input-agent-properties>
             </block-type>
-			
           </block-types>
-        </procedure>    
-    
-
-
-
+        </procedure>
         <procedure>
           <name>check-collision</name>
           <imports>
             <pattern>.*</pattern>
           </imports>
           <block-types>
-          
-			<block-type>
+            <block-type>
               <name>update-stationary-ball-speed</name>
               <category>Actions</category>
               <return-type>NULL</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(do-agent-proc self ap-balls-update-stationary-ball-speed)</implementation>
-            </block-type>  
-  
-
+            </block-type>
             <block-type>
               <name>update-moving-ball-speed</name>
               <category>Actions</category>
               <return-type>NULL</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(do-agent-proc self ap-balls-update-moving-ball-speed)</implementation>
-            </block-type>    
-  
-
+            </block-type>
             <block-type>
               <name>keep-moving-same-speed</name>
               <category>Actions</category>
               <return-type>NULL</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(do-agent-proc self no-op)</implementation>
-            </block-type>      
-
-
-          
-			<block-type>
+            </block-type>
+            <block-type>
               <name>close</name>
               <category>Conditions</category>
               <return-type>BOOLEAN</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
               <implementation>(return fext-close)</implementation>
-			  <input-agent-properties>
-				<agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>x-coordinate</name>
-				  <type>REAL</type>
-				</agent-property>
-			  </input-agent-properties>
-
-            </block-type>   
-
-          
-          
-          
-          
-			<block-type>
+              <input-agent-properties>
+                <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>x-coordinate</name>
+                  <type>REAL</type>
+                </agent-property>
+              </input-agent-properties>
+            </block-type>
+            <block-type>
               <name>moving</name>
               <category>Conditions</category>
               <return-type>BOOLEAN</return-type>
-              <arguments />
+              <arguments/>
               <user-defined>false</user-defined>
-<!--               <implementation>(return fext-is-moving)</implementation> -->
+              <!--         <implementation>(return fext-is-moving)</implementation> -->
               <implementation>(return (gt (prop-value (agent-prop self speed) 0)))</implementation>
-			  <input-agent-properties>
-				<agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-				</agent-property>
-			  </input-agent-properties>
-			  <output-agent-properties>
-				<agent-property>
+              <input-agent-properties>
+                <agent-property>
                   <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-				</agent-property>
-			  </output-agent-properties>
-            </block-type>   
-
-
-        
-			
+                  <name>speed</name>
+                  <type>REAL</type>
+                </agent-property>
+              </input-agent-properties>
+              <output-agent-properties>
+                <agent-property>
+                  <agent-type>balls</agent-type>
+                  <name>speed</name>
+                  <type>REAL</type>
+                </agent-property>
+              </output-agent-properties>
+            </block-type>
           </block-types>
-        </procedure>    
- 
-
-    
+        </procedure>
         <procedure>
           <name>update-stationary-ball-speed</name>
           <imports>
             <pattern>.*</pattern>
           </imports>
-          <block-types>    
-                        
-            <block-type>
-              <name>direction-stationary</name>
-              <category>Agent Properties</category>
-              <return-type>INTEGER</return-type>
-              <arguments></arguments>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-direction)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>direction</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>    
-            </block-type>
-
-
-
-            <block-type>
-              <name>set-direction-same-stationary</name>
-              <category>Actions</category>
-              <return-type>NULL</return-type>
-              <arguments>        
-                <argument>
-                  <name>direction</name>
-                  <type>INTEGER</type>
-                </argument>
-              </arguments>
-              <user-defined>false</user-defined>
-              <implementation>(update-prop-value (agent-prop self heading) :direction)</implementation>
-			  <output-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>direction</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </output-agent-properties>  
-            </block-type>
-
-            
-            <block-type>
-              <name>set-direction-reverse-stationary</name>
-              <category>Actions</category>
-              <return-type>NULL</return-type>
-              <arguments>        
-                <argument>
-                  <name>direction</name>
-                  <type>INTEGER</type>
-                </argument>
-              </arguments>
-              <user-defined>false</user-defined>
-              <implementation>(update-prop-value (agent-prop self heading) (* -1 :direction))</implementation>
-			  <output-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>direction</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </output-agent-properties>  
-            </block-type>
-
-            
-            
-            <block-type>
-              <name>mass-comparison-me-stationary</name>
-              <category>Conditions</category>
-              <return-type>BOOLEAN</return-type>
-              <arguments/>        
-              <user-defined>false</user-defined>
-              <implementation>(return fext-target-heavier)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>mass</name>
-				  <type>INTEGER</type>
-			    </agent-property>
-			  </input-agent-properties>
-            </block-type>
-
-           
-            
-            <block-type>
-              <name>mass-comparison-other-stationary</name>
-              <category>Conditions</category>
-              <return-type>BOOLEAN</return-type>
-              <arguments/>        
-              <user-defined>false</user-defined>
-              <implementation>(return fext-cue-heavier)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>mass</name>
-				  <type>INTEGER</type>
-			    </agent-property>
-			  </input-agent-properties>
-		    </block-type>
-
-            
-			<block-type>
-              <name>mass-comparison-same-stationary</name>
-              <category>Conditions</category>
-              <return-type>BOOLEAN</return-type>
-              <arguments/>        
-              <user-defined>false</user-defined>
-              <implementation>(return fext-same-mass)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>mass</name>
-				  <type>INTEGER</type>
-			    </agent-property>
-			  </input-agent-properties>
-            </block-type>  
-         
-
-            <block-type>
-              <name>assign-new-speed-stationary</name>
-              <category>Actions</category>
-              <return-type>NULL</return-type>
-              <arguments>        
-                <argument>
-                  <name>new-speed</name>
-                  <type>REAL</type>
-                </argument>
-                </arguments>
-              <user-defined>false</user-defined>
-              <implementation>(do (ext-update-stationary-speed :new-speed))</implementation>
-		      <output-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </output-agent-properties>              
-            </block-type>
-
-
-		    <block-type>
-              <name>same-other-stationary</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-stationary-same-other)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>  
-
-
-            <block-type>
-              <name>smaller-me-stationary</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-stationary-smaller-me)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>  
-
-
-
-            <block-type>
-              <name>greater-me-stationary</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-stationary-greater-me)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>    
-
-            
-            
-
-
-            <block-type>
-              <name>same-me-stationary</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-stationary-same-me)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>   
-
-
-
-            <block-type>
-              <name>bigger-other-stationary</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-stationary-bigger-other)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>      
-
-
-
-
-            <block-type>
-              <name>smaller-other-stationary</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-stationary-smaller-other)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>
-            
-          </block-types>
-        </procedure>        
-        
-
-        <procedure>
-          <name>update-moving-ball-speed</name>
-          <imports>
-            <pattern>.*</pattern>
-          </imports>
-          <block-types>    
-                        
-            <block-type>
+          <block-types>
+            <!-- 
+                  <block-type>
+            <name>direction-stationary</name>
+            <category>Agent Properties</category>
+            <return-type>INTEGER</return-type>
+            <arguments>
+            </arguments>
+            <user-defined>false</user-defined>
+            <implementation>(return fext-moving-direction)</implementation>
+            <input-agent-properties>
+              <agent-property>
+                <agent-type>balls</agent-type>
+                <name>direction</name>
+                <type>REAL</type>
+              </agent-property>
+            </input-agent-properties>
+          </block-type>
+           -->
+          <!-- 
+                <block-type>
+          <name>set-direction-same-stationary</name>
+          <category>Actions</category>
+          <return-type>NULL</return-type>
+          <arguments>
+            <argument>
               <name>direction</name>
-              <category>Agent Properties</category>
-              <return-type>INTEGER</return-type>
-              <arguments></arguments>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-direction)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>direction</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>    
-            </block-type>
+              <type>INTEGER</type>
+            </argument>
+          </arguments>
+          <user-defined>false</user-defined>
+          <implementation>(update-prop-value (agent-prop self heading) :direction)</implementation>
+          <output-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>direction</name>
+              <type>REAL</type>
+            </agent-property>
+          </output-agent-properties>
+        </block-type>
+        <block-type>
+          <name>set-direction-reverse-stationary</name>
+          <category>Actions</category>
+          <return-type>NULL</return-type>
+          <arguments>
+            <argument>
+              <name>direction</name>
+              <type>INTEGER</type>
+            </argument>
+          </arguments>
+          <user-defined>false</user-defined>
+          <implementation>(update-prop-value (agent-prop self heading) (* -1 :direction))</implementation>
+          <output-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>direction</name>
+              <type>REAL</type>
+            </agent-property>
+          </output-agent-properties>
+        </block-type>
+         -->
+        <block-type>
+          <name>mass-comparison-me-stationary</name>
+          <category>Conditions</category>
+          <return-type>BOOLEAN</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-target-heavier)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>mass</name>
+              <type>INTEGER</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>mass-comparison-other-stationary</name>
+          <category>Conditions</category>
+          <return-type>BOOLEAN</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-cue-heavier)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>mass</name>
+              <type>INTEGER</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>mass-comparison-same-stationary</name>
+          <category>Conditions</category>
+          <return-type>BOOLEAN</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-same-mass)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>mass</name>
+              <type>INTEGER</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>assign-new-speed-stationary</name>
+          <category>Actions</category>
+          <return-type>NULL</return-type>
+          <arguments>
+            <argument>
+              <name>new-speed</name>
+              <type>REAL</type>
+            </argument>
+          </arguments>
+          <user-defined>false</user-defined>
+          <implementation>(do (ext-update-stationary-speed :new-speed))</implementation>
+          <output-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </output-agent-properties>
+        </block-type>
+        <block-type>
+          <name>same-other-stationary</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-stationary-same-other)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>smaller-me-stationary</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-stationary-smaller-me)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>greater-me-stationary</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-stationary-greater-me)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>same-me-stationary</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-stationary-same-me)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>bigger-other-stationary</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-stationary-bigger-other)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>smaller-other-stationary</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-stationary-smaller-other)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+      </block-types>
+    </procedure>
+    <procedure>
+      <name>update-moving-ball-speed</name>
+      <imports>
+        <pattern>.*</pattern>
+      </imports>
+      <block-types>
+        <block-type>
+          <name>direction</name>
+          <category>Agent Properties</category>
+          <return-type>INTEGER</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-direction)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>direction</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>set-direction-same</name>
+          <category>Actions</category>
+          <return-type>NULL</return-type>
+          <arguments>
+            <argument>
+              <name>direction</name>
+              <type>INTEGER</type>
+            </argument>
+          </arguments>
+          <user-defined>false</user-defined>
+          <implementation>(do (ext-set-moving-direction-same :direction))</implementation>
+          <output-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>direction</name>
+              <type>REAL</type>
+            </agent-property>
+          </output-agent-properties>
+        </block-type>
+        <block-type>
+          <name>set-direction-reverse</name>
+          <category>Actions</category>
+          <return-type>NULL</return-type>
+          <arguments>
+            <argument>
+              <name>direction</name>
+              <type>INTEGER</type>
+            </argument>
+          </arguments>
+          <user-defined>false</user-defined>
+          <implementation>(do (ext-set-moving-direction-reverse :direction))</implementation>
+          <output-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>direction</name>
+              <type>REAL</type>
+            </agent-property>
+          </output-agent-properties>
+        </block-type>
+        <block-type>
+          <name>mass-comparison-me</name>
+          <category>Conditions</category>
+          <return-type>BOOLEAN</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-cue-heavier)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>mass</name>
+              <type>INTEGER</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>mass-comparison-other</name>
+          <category>Conditions</category>
+          <return-type>BOOLEAN</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-target-heavier)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>mass</name>
+              <type>INTEGER</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>mass-comparison-same</name>
+          <category>Conditions</category>
+          <return-type>BOOLEAN</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-same-mass)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>mass</name>
+              <type>INTEGER</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>assign-new-speed-moving</name>
+          <category>Actions</category>
+          <return-type>NULL</return-type>
+          <arguments>
+            <argument>
+              <name>new-speed</name>
+              <type>REAL</type>
+            </argument>
+          </arguments>
+          <user-defined>false</user-defined>
+          <implementation>(do (ext-update-moving-speed :new-speed))</implementation>
+          <output-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </output-agent-properties>
+        </block-type>
+        <block-type>
+          <name>same-other</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-same-other)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>smaller-me</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-smaller-me)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>greater-me</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-greater-me)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>same-me</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-same-me)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>bigger-other</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-bigger-other)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+        <block-type>
+          <name>smaller-other</name>
+          <category>Parameters</category>
+          <return-type>REAL</return-type>
+          <arguments/>
+          <user-defined>false</user-defined>
+          <implementation>(return fext-moving-smaller-other)</implementation>
+          <input-agent-properties>
+            <agent-property>
+              <agent-type>balls</agent-type>
+              <name>speed</name>
+              <type>REAL</type>
+            </agent-property>
+          </input-agent-properties>
+        </block-type>
+      </block-types>
+    </procedure>
+  </procedures>
+  <block-types/>
+</agent-type>
+</agent-types>
+<environment-elements>
+</environment-elements>
+<block-types>
+  <block-type>
+    <name>if-then-else</name>
+    <category>Control</category>
+    <return-type>NULL</return-type>
+    <arguments>
+      <argument>
+        <name>condition</name>
+        <type>BOOLEAN</type>
+      </argument>
+      <argument>
+        <name>consequent</name>
+        <type>BLOCK_SEQUENCE</type>
+      </argument>
+      <argument>
+        <name>alternative</name>
+        <type>BLOCK_SEQUENCE</type>
+      </argument>
+    </arguments>
+    <user-defined>false</user-defined>
+    <implementation>(if :condition :consequent :alternative)</implementation>
+  </block-type>
+</block-types>
 
-
-            <block-type>
-              <name>set-direction-same</name>
-              <category>Actions</category>
-              <return-type>NULL</return-type>
-              <arguments>        
-                <argument>
-                  <name>direction</name>
-                  <type>INTEGER</type>
-                </argument>
-              </arguments>
-              <user-defined>false</user-defined>
-              <implementation>(do (ext-set-moving-direction-same :direction))</implementation>
-			  <output-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>direction</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </output-agent-properties>  
-            </block-type>
-            
-
-            <block-type>
-              <name>set-direction-reverse</name>
-              <category>Actions</category>
-              <return-type>NULL</return-type>
-              <arguments>        
-                <argument>
-                  <name>direction</name>
-                  <type>INTEGER</type>
-                </argument>
-              </arguments>
-              <user-defined>false</user-defined>
-              <implementation>(do (ext-set-moving-direction-reverse :direction))</implementation>
-			  <output-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>direction</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </output-agent-properties>  
-            </block-type>
-            
-            
-            <block-type>
-              <name>mass-comparison-me</name>
-              <category>Conditions</category>
-              <return-type>BOOLEAN</return-type>
-              <arguments/>        
-              <user-defined>false</user-defined>
-              <implementation>(return fext-cue-heavier)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>mass</name>
-				  <type>INTEGER</type>
-			    </agent-property>
-			  </input-agent-properties>
-            </block-type>
-            
-            <block-type>
-              <name>mass-comparison-other</name>
-              <category>Conditions</category>
-              <return-type>BOOLEAN</return-type>
-              <arguments/>        
-              <user-defined>false</user-defined>
-              <implementation>(return fext-target-heavier)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>mass</name>
-				  <type>INTEGER</type>
-			    </agent-property>
-			  </input-agent-properties>
-		    </block-type>
-            
-			<block-type>
-              <name>mass-comparison-same</name>
-              <category>Conditions</category>
-              <return-type>BOOLEAN</return-type>
-              <arguments/>        
-              <user-defined>false</user-defined>
-              <implementation>(return fext-same-mass)</implementation>
-			  <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>mass</name>
-				  <type>INTEGER</type>
-			    </agent-property>
-			  </input-agent-properties>
-            </block-type>           
-            
-            
-            <block-type>
-              <name>assign-new-speed-moving</name>
-              <category>Actions</category>
-              <return-type>NULL</return-type>
-              <arguments>        
-                <argument>
-                  <name>new-speed</name>
-                  <type>REAL</type>
-                </argument>
-                </arguments>
-              <user-defined>false</user-defined>
-              <implementation>(do (ext-update-moving-speed :new-speed))</implementation>
-		      <output-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </output-agent-properties>              
-            </block-type>
-
-
-		    <block-type>
-              <name>same-other</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-same-other)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>  
-
-
-            <block-type>
-              <name>smaller-me</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-smaller-me)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>  
-
-
-            <block-type>
-              <name>greater-me</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-greater-me)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>              
-            
-            
-
-            <block-type>
-              <name>same-me</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-same-me)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>              
-            
-            
-            <block-type>
-              <name>bigger-other</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-bigger-other)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>            
-            
-
-            <block-type>
-              <name>smaller-other</name>
-              <category>Parameters</category>
-              <return-type>REAL</return-type>
-              <arguments/>
-              <user-defined>false</user-defined>
-              <implementation>(return fext-moving-smaller-other)</implementation>
-		      <input-agent-properties>
-			    <agent-property>
-				  <agent-type>balls</agent-type>
-				  <name>speed</name>
-				  <type>REAL</type>
-			    </agent-property>
-			  </input-agent-properties>              
-            </block-type>  
-            
-            </block-types>
-        </procedure>
-        
-        
-        
-        </procedures>
-      <block-types />
-    </agent-type>
-  </agent-types>
-  
-  <environment-elements>
-  </environment-elements>
-  
-  <block-types>
-    
-    <block-type>
-      <name>if-then-else</name>
-      <category>Control</category>
-      <return-type>NULL</return-type>
-      <arguments>
-        <argument>
-          <name>condition</name>
-          <type>BOOLEAN</type>
-        </argument>
-        <argument>
-          <name>consequent</name>
-          <type>BLOCK_SEQUENCE</type>
-        </argument>
-        <argument>
-          <name>alternative</name>
-          <type>BLOCK_SEQUENCE</type>
-        </argument>
-      </arguments>
-      <user-defined>false</user-defined>
-      <implementation>(if :condition :consequent :alternative)</implementation>
-    </block-type>    
- 
-
-  </block-types>
-
-
-  <before-run>(ext-before-run)</before-run>
-  <before-step>(ext-before-step)</before-step>
-  <after-step>(ext-after-step)</after-step>
-  <after-run>(ext-after-run)</after-run>
+<before-run>(ext-before-run)</before-run>
+<before-step>(ext-before-step)</before-step>
+<after-step>(ext-after-step)</after-step>
+<after-run>(ext-after-run)</after-run>
 </domain-model>
