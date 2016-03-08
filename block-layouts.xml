@@ -7,9 +7,6 @@
         <bg-color>LightSteelBlue</bg-color>
         <row>
             <label>when </label>     
-            <filler></filler>
-        </row>
-        <row>
             <block-field>
                 <bg-color>#EED0EE</bg-color>
                 <argument>condition</argument>
@@ -17,6 +14,8 @@
         </row>
         <row>
             <label>do</label>
+            <filler></filler>
+
         </row>
         <row>
             <block-list-field>
@@ -41,7 +40,7 @@
         <procedure>go</procedure>
         <bg-color>MediumTurquoise</bg-color>
         <row>
-            <label>update the position</label>
+            <label>update the ball's position</label>
             <filler></filler>
         </row>
     </block-layout>   
@@ -69,11 +68,11 @@
       <agent-type>balls</agent-type>
       <bg-color>MediumTurquoise</bg-color>
       <row>
-         <label>Move forward by </label>
-          <block-field>
+         <label>Move by </label>
+         <block-field>
               <bg-color>#EED0EE</bg-color>
               <argument>dist</argument>
-           </block-field>
+         </block-field>
       </row>
    </block-layout> 
  
@@ -97,7 +96,7 @@
         <procedure>check-collision</procedure>
         <bg-color>MediumTurquoise</bg-color>
         <row>
-            <label>update speed of the stationary ball</label>
+            <label>update the speed of the ball as stationary</label>
             <filler></filler>
         </row>
     </block-layout>      
@@ -108,7 +107,7 @@
         <procedure>check-collision</procedure>
         <bg-color>MediumTurquoise</bg-color>
         <row>
-            <label>update speed of the moving ball</label>
+            <label>update the speed of the ball as moving</label>
             <filler></filler>
         </row>
     </block-layout> 
@@ -119,7 +118,7 @@
         <procedure>check-collision</procedure>
         <bg-color>LightBlue</bg-color>
         <row>
-            <label>the balls collide with each other</label>
+            <label>the ball collides with another ball</label>
             <filler></filler>
         </row>
     </block-layout>    
@@ -141,7 +140,7 @@
         <procedure>check-collision</procedure>
         <bg-color>MediumTurquoise</bg-color>
         <row>
-            <label>the balls keep moving at their current speed</label>
+            <label>keep the ball moving at it current speed</label>
             <filler></filler>
         </row>
     </block-layout>

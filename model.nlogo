@@ -324,8 +324,6 @@ to before-run
   make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
 
 
-
-
   reset-ticks
  ; clear-all-plots
 end
@@ -336,9 +334,11 @@ to before-step
 end
 
 to after-step
-  if not done[
-    tick
+  if done[
+    stop
   ]
+  tick
+  
 end
 
 to update-view

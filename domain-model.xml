@@ -196,8 +196,8 @@
               <return-type>BOOLEAN</return-type>
               <arguments/>
               <user-defined>false</user-defined>
-              <!--         <implementation>(return fext-is-moving)</implementation> -->
-              <implementation>(return (gt (prop-value (agent-prop self speed) 0)))</implementation>
+              <implementation>(return fext-is-moving)</implementation>
+<!--               <implementation>(return (gt (prop-value (agent-prop self speed) 0)))</implementation> -->
               <input-agent-properties>
                 <agent-property>
                   <agent-type>balls</agent-type>
