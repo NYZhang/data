@@ -10,9 +10,9 @@ balls-own
 
 
 globals [
- cue-ball-mass
- target-ball-mass
- init-speed
+ white-ball-mass
+ red-ball-mass
+ white-ball-speed
  
  M1
  M2
@@ -312,16 +312,16 @@ to before-run
   set target-collided false
   set reversed false
 
-  set M1 cue-ball-mass
-  set M2 target-ball-mass
-  set INIT init-speed
+  set M1 white-ball-mass
+  set M2 red-ball-mass
+  set INIT white-ball-speed
   ;;set cue-ball-mass mass-ratio
   ;;set target-ball-mass 4
   
   ;;make-ball [clr spd ms nm pos sz]
  ;; make-ball white 1 4 "cue" min-pxcor + 1 1 + cue-ball-mass / 10
-  make-ball white init-speed cue-ball-mass "cue" min-pxcor + 1 1 + cue-ball-mass / 10
-  make-ball red 0 target-ball-mass "target" 0 1 + target-ball-mass / 10
+  make-ball white white-ball-speed M1 "cue" min-pxcor + 1 1 + M1 / 10
+  make-ball red 0 M2 "target" 0 1 + M2 / 10
 
 
   reset-ticks

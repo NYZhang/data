@@ -2,25 +2,25 @@
   <name>two-ball-collision</name>
   <conditions>
     <condition>
-      <name>init-speed</name>
+      <name>red-ball-mass</name>
+      <type>integer</type>
+      <min-value>1</min-value>
+      <max-value>10</max-value>
+      <default-value>5</default-value>
+    </condition>
+    <condition>
+      <name>white-ball-mass</name>
+      <type>integer</type>
+      <min-value>1</min-value>
+      <max-value>10</max-value>
+      <default-value>5</default-value>
+    </condition>
+    <condition>
+      <name>white-ball-speed</name>
       <type>integer</type>
       <min-value>1</min-value>
       <max-value>5</max-value>
       <default-value>3</default-value>
-    </condition>
-    <condition>
-      <name>target-ball-mass</name>
-      <type>integer</type>
-      <min-value>1</min-value>
-      <max-value>10</max-value>
-      <default-value>5</default-value>
-    </condition>
-    <condition>
-      <name>cue-ball-mass</name>
-      <type>integer</type>
-      <min-value>1</min-value>
-      <max-value>10</max-value>
-      <default-value>5</default-value>
     </condition>
   </conditions>
   <measurements/>
