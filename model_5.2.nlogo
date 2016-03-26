@@ -318,7 +318,6 @@ end
 
 
 
-;; fext functions to be used in collide
 
 ;; ======================
 
